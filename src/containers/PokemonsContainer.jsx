@@ -16,17 +16,22 @@ const PokemonList = ({ history, ...props }) => {
   // jadi untuk filter langsung filter dari front_end
   // yang mana smua data pokemons sudah di load di awal
   const onSubmit = () => {
-    const dataPokemon = Object.assign({}, state);
-    const result = {};
-     result.pokemons = dataPokemon.pokemons.filter((data) => {
-      const str = search.split(' ')
-      .map(world => world[0].toUpperCase() + world.substr(1).toLowerCase())
-      .join(' ')
-      if(data.name.indexOf(str) > -1) {
-        return data;
-      }
-    })
-    load(result, true);
+    if(search) {
+      const dataPokemon = Object.assign({}, state);
+      const result = {};
+       result.pokemons = dataPokemon.pokemons.filter((data) => {
+        const str = search.split(' ')
+        .map(world => world[0].toUpperCase() + world.substr(1).toLowerCase())
+        .join(' ')
+        if(data.name.indexOf(str) > -1) {
+          return data;
+        }
+      })
+      console.log(result);
+      load(result, true);
+    } else {
+      load(state);
+    }
   }
 
   const observer = React.useRef(
